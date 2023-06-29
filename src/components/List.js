@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import ListItem from './ListItem'
 
-const List = () => {
+const List = ({getTasks}) => {
   const initialData = [
     {id:1, title:'to drink coffe ', done:true, important:true},
     {id:2, title:'to wach car ', done:false, important:false},
@@ -39,6 +39,8 @@ const doneHandler = (id) =>{
   let newTasks = [...tasks];
   newTasks[ind].done = !newTasks[ind].done;
   setTasks(newTasks);
+  // проброс функции в апп
+  getTasks(tasks)
 }
  
  const deleteItemHendler = (id)=>{
@@ -47,11 +49,11 @@ const doneHandler = (id) =>{
     let newTasks = [...tasks];
     newTasks.splice(ind,1);
     setTasks(newTasks);
-    console.log(tasks);
+    
  }
   
- 
- 
+
+
   
 
 
@@ -62,18 +64,13 @@ const items = tasks.map(item =>(
     // onDeleteItem={(id)=>deleteItemHendler()}
     // onDeleteItem={(id)=>deleteItemHendler(id)}
     onDeleteItem={deleteItemHendler}
+    onDone={doneHandler}
+    onImportant={importantHandler}
+   
     />
  
 ))
 
-// const add = ()=>{
-//   let newCount = count++;
-//   setCount(newCount)
-// }
-
-// let number = count;
-
-// console.log('count'+number);
 
 
 
