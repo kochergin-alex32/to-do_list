@@ -1,21 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom/client';
 
 const AddItem = ({onAdd}) => {
   // const inp = document.querySelector('input')
-  const title = 'test'
+  const [value, setValue]=useState('')
+ 
   return (
-    <form className="item-add-form d-flex">
-          <input
+    <div className="item-add-form d-flex">
+          <input onChange={(e)=>setValue(e.target.value)}
           id="addTitle"
             type="text"
             className="form-control"
             placeholder="What needs to be done"
-           
-          /><button 
-          onClick={()=>onAdd(title)}
+           value={value}
+          />
+          <button
+          onClick={()=>onAdd(value)}
           className="btn btn-outline-secondary col-3">Add Item</button>
-        </form>
+        </div>
   )
 }
 

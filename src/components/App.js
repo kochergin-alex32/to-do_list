@@ -79,14 +79,42 @@ const done = tasks.reduce((count,item)=>{
 const todo = tasks.length - done
 // console.log(todo);
 const addItemHandler = (title)=>{
-    alert(title)
+    const id = tasks[tasks.length-1].id +1
+    console.log(id);
+  const newTask =  {id:id, title:title, done:false, important:false}
+  const newTasks=[...tasks]
+  newTasks.push(newTask)
+  setTasks(newTasks)
 }
-
+const filterHandler = (type) =>{
+    let newTasks, filteredTasks
+    switch (type) {
+        case 0:
+            return tasks
+           
+            case 1:
+            newTasks = [...tasks]
+            filteredTasks = newTasks.filter((el)=>{
+                return el.done == false;
+            })
+            
+           
+        case 2:
+            newTasks = [...tasks]
+            filteredTasks = newTasks.filter((el)=>{
+                return el.done == true;
+            })
+           
+    
+        
+    }
+    console.log(filterHandler);
+}
     return ( 
         <div className="todo-app">
     
     <Header todo={todo} done={done}/>
-    <Search/>
+    <Search onFilter={(type)=>filterHandler(type)}/>
    <List 
             tasks = {tasks}
             onImportant = {(id) => importantHandler(id)}
