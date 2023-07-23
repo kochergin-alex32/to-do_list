@@ -15,7 +15,7 @@ const AddItem = ({onAdd}) => {
            value={value}
           />
           <button
-          onClick={()=>onAdd(value)}
+          onClick={()=>{onAdd(value);setValue('')}}
           className="btn btn-outline-secondary col-3">Add Item</button>
         </div>
   )

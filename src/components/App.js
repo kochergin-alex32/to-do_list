@@ -14,9 +14,12 @@ const App = () =>{
         {id:2, title:'to wach car ', done:false, important:false},
         {id:3, title:'to do app', done:true, important:false},
       ]
+    
+      
       let [tasks, setTasks] = useState(initialData);
        
       const[filter,setFilter] = useState(0);
+      const [value, setValue] = useState('');
    
 
 
@@ -73,24 +76,37 @@ const addItemHandler = (title)=>{
   newTasks.push(newTask)
   setTasks(newTasks)
 }
-const filterHandler = (type=0) =>{
- 
-    let newTasks, filteredTasks
+const filterHandler = (type=0, value='') =>{
+
+   
+    //   const newArr =  Array.map(element =>{
+    //     if(element.title.includes(value)){
+
+    //     }
+    //   });
+
+    //      console.log(newArr);
+
+
+    let  filteredTasks
     switch (type) {
         case 0:
-            return tasks
+            filteredTasks = tasks.filter((el)=>{
+                return  el.title.toLowerCase().includes(value.toLowerCase());
+            })
+            return filteredTasks ;
            
             case 1:
-            newTasks = [...tasks]
-            filteredTasks = newTasks.filter((el)=>{
-                return el.done == false;
+            // newTasks = [...tasks]
+            filteredTasks = tasks.filter((el)=>{
+                return el.done == false && el.title.toLowerCase().includes(value.toLowerCase());
             })
            return filteredTasks 
            
         case 2:
-            newTasks = [...tasks]
-            filteredTasks = newTasks.filter((el)=>{
-                return el.done == true;
+            // newTasks = [...tasks]
+            filteredTasks = tasks.filter((el)=>{
+                return el.done == true && el.title.toLowerCase().includes(value.toLowerCase());
             })
             return filteredTasks 
            
@@ -99,13 +115,15 @@ const filterHandler = (type=0) =>{
     }
   
 }
-    const filteredTasks =  filterHandler(filter)
+
+    let filteredTasks =  filterHandler(filter,value)
 
     return ( 
         <div className="todo-app">
     <Header todo={todo} done={done}/>
       <div className="top-panel d-flex">
-        <Search onSearch={(value)=> {setFilter(type)}}/>
+        {/* <Search onSearch={(value)=> {filteredTasks = filterHandler(filter,value)}}/> */}
+        <Search onSearch={(value)=> {setValue(value)}}/>
         <Filter onFilter={(type)=> {setFilter(type)}}/>
       </div>
 
